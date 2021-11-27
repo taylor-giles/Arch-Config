@@ -1,4 +1,4 @@
-#!usr/bin/env zsh
+#!/usr/bin/env zsh
 # Print out available disk options and save them to array
 echo "Available disks:"
 lsblk -dplnx size -o name,size
