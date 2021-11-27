@@ -1,5 +1,5 @@
 # Print out available disk options and save them to array
-DISK_OPTIONS=("${(@f)$(lsblk -dplnx size -o name,size)}")
+IFS=$'\n' DISK_OPTIONS=($(lsblk -dplnx size -o name,size))
 
 # Select disks
 PS3="Select the EFI disk: "
