@@ -8,11 +8,13 @@ IFS=$'\n\n' DISK_OPTIONS=($(lsblk -dplnx size -o name))
 PS3="Please select a disk to partition: "
 select CHOSEN_DISK in $DISK_OPTIONS 
 do
-	if [ -z $CHOSEN_DISK ] then
+	if [ -z $CHOSEN_DISK ]
+	then
 		echo "Please make a valid selection."
 	else
 		echo "Disk selected: $CHOSEN_DISK"
 		break
+	fi
 done
 echo ""
 
