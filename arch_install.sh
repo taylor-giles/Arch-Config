@@ -1,33 +1,20 @@
+#!user/bin/env zsh
 # Print out available disk options and save them to array
-IFS=$'\n' DISK_OPTIONS=($(lsblk -dplnx size -o name,size))
+echo "Available disks:"
+lsblk -dplnx size -o name,size
+IFS=$'\n\n' DISK_OPTIONS=($(lsblk -dplnx size -o name))
 
-# Select disks
-PS3="Select the EFI disk: "
-select EFI_DISK in $DISK_OPTIONS do
-	echo $EFI_DISK
-	if [-z $EFI_DISK] then
+# Select disk
+PS3="Please select a disk to partition: "
+select CHOSEN_DISK in $DISK_OPTIONS 
+do
+	if [ -z $CHOSEN_DISK ] then
 		echo "Please make a valid selection."
 	else
+		echo "Disk selected: $CHOSEN_DISK"
 		break
 done
-
-PS3="Select the swap disk: "
-select SWAP_DISK in $DISK_OPTIONS do
-	echo $SWAP_DISK
-	if [-z $SWAP_DISK] then
-		echo "Please make a valid selection."
-	else
-		break
-done
-
-PS3="Select the filesystem disk: "
-select FS_DISK in $DISK_OPTIONS do
-	echo $FS_DISK
-	if [-z $FS_DISK] then
-		echo "Please make a valid selection."
-	else
-		break
-done
+echo ""
 
 
 
