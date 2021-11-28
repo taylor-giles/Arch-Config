@@ -63,7 +63,7 @@ do
 	done
 
 	# Confirm choices
-	echo "\n\nChosen partitions:\nEFI: $EFI_PART\nSWAP: $SWAP_PART\nFILESYSTEM: $FS_PART"
+	echo "\n\nChosen partitions:\nEFI:        $EFI_PART\nSWAP:       $SWAP_PART\nFILESYSTEM: $FS_PART\n"
 	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "Repeating partition selection\n\n"
 done
 
