@@ -55,10 +55,10 @@ select_partitions () {
 # Define config function
 config () {
 	echo "Getting config script..."
-	curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_config.sh > arch_config.sh
+	curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_config.sh > /mnt/arch_config.sh
 
 	echo "Chrooting to run config script..."
-	chmod +x arch_config.sh
+	chmod +x /mnt/arch_config.sh
 	arch-chroot /mnt ./arch_config.sh $EFI
 }
 
