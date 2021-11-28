@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 # Welcome
+clear
 echo "*************************************"
 echo "**** Welcome to the Taylor Giles ****"
 echo "******** Arch Linux Installer *******"
@@ -16,7 +17,7 @@ do
 
 	# Print out available partition options and save them to array
 	echo "\nAvailable partitions:"
-	lsblk -dplnx size -o name,size
+	echo "${$(lsblk -l -o name,size,type | grep part)//part/""}"
 	PARTITION_OPTIONS=(${(f)"${$(lsblk -l -n -o name,type | grep part)//part/" "}"})
 
 	# Select EFI partition
@@ -62,9 +63,8 @@ do
 	done
 
 	# Confirm choices
-	echo "Chosen partitions:\nEFI: $EFI_PART\nSWAP: $SWAP_PART\nFILESYSTEM: $FS_PART"
-	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break
-	echo "\n\n"
+	echo "\n\nChosen partitions:\nEFI: $EFI_PART\nSWAP: $SWAP_PART\nFILESYSTEM: $FS_PART"
+	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "Repeating partition selection\n\n"
 done
 
 
