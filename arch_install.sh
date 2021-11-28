@@ -90,12 +90,14 @@ do
 	echo "\n\nChosen partitions:\nEFI:        $EFI_PART\nSWAP:       $SWAP_PART\nFILESYSTEM: $FS_PART\n"
 	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "\nRepeating partition selection\n\n"
 done
-EFI_PART = "/dev/$EFI_PART"
-SWAP_PART = "/dev/$SWAP_PART"
-FS_PART = "/dev/$FS_PART"
+
+# Add /dev/ and remove whitespace
+EFI=$(echo "/dev/$EFI_PART" | xargs)
+SWAP=$(echo "/dev/$SWAP_PART" | xargs)
+FS=$(echo "/dev/$FS_PART" | xargs)
 
 echo "Creating ext4 file system..."
-mkfs.ext4 $FS_PART
+mkfs.ext4 $FS
 if [ $? -ne 0 ]
 then
 	echo "ERROR: ext4 file system not created. Aborting install..."
@@ -103,14 +105,14 @@ then
 fi
 
 echo "Initializing swap..."
-mkswap $SWAP_PART
+mkswap $SWAP
 if [ $? -ne 0 ]
 then
 	echo "ERROR: mkswap failed. Aborting install..."
 	exit $?
 fi
 
-swapon $SWAP_PART
+swapon $SWAP
 if [ $? -ne 0 ]
 then
 	echo "ERROR: swapon failed. Aborting install..."
@@ -118,7 +120,7 @@ then
 fi
 
 echo "Formatting EFI partition..."
-mkfs.fat -F32 $EFI_PART
+mkfs.fat -F32 $EFI
 if [ $? -ne 0 ]
 then
 	echo "ERROR: EFI partition not formatted. Aborting install..."
@@ -126,7 +128,7 @@ then
 fi
 
 echo "Mounting root volume..."
-mount $FS_PART /mnt
+mount $FS /mnt
 if [ $? -ne 0 ]
 then
 	echo "ERROR: root volume not mounted. Aborting install..."
