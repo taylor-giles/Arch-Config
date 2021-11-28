@@ -74,7 +74,7 @@ echo "If you do not have these partitions prepared, please exit with Ctrl+C and 
 
 # Update clock
 echo "\nUpdating system clock..."
-timedatectl set-nt p true
+timedatectl set-ntp true
 
 # Set up Partitions
 while
