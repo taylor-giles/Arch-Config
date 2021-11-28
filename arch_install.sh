@@ -1,19 +1,8 @@
 #!/usr/bin/env zsh
 
-# Welcome
-clear
-echo "*************************************"
-echo "**** Welcome to the Taylor Giles ****"
-echo "******** Arch Linux Installer *******"
-echo "*************************************"
-echo "\n\n(Press Ctrl+C at any time to exit the installer.)"
-echo "\nIMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
-echo "If you do not have these partitions prepared, please exit with Ctrl+C and partition now."
-
-# STEP 1: Set up Partitions
-while
-do
-	echo "\n\n----- Step 1: Set Up Partitions -----"
+# Define partition selection function
+select_partitions () {
+	echo "\n\n----- Partition Selection -----"
 
 	# Print out available partition options and save them to array
 	echo "\nAvailable partitions:"
@@ -61,11 +50,65 @@ do
 			break
 		fi
 	done
+}
+
+# Define config function
+config () {
+	echo "Getting config script..."
+	curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_config.sh > arch_config.sh
+
+	echo "Starting config script..."
+	chmod +x arch_config.sh
+	./arch_config.sh
+}
+
+# Welcome
+clear
+echo "\n\n*************************************"
+echo "**** Welcome to the Taylor Giles ****"
+echo "******** Arch Linux Installer *******"
+echo "*************************************"
+echo "\n\n(Press Ctrl+C at any time to exit the installer.)"
+echo "\nIMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
+echo "If you do not have these partitions prepared, please exit with Ctrl+C and partition now."
+
+# Update clock
+echo "\nUpdating system clock..."
+timedatectl set-nt p true
+
+# Set up Partitions
+while
+do
+	select_partitions
 
 	# Confirm choices
 	echo "\n\nChosen partitions:\nEFI:        $EFI_PART\nSWAP:       $SWAP_PART\nFILESYSTEM: $FS_PART\n"
-	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "Repeating partition selection\n\n"
+	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "\nRepeating partition selection\n\n"
 done
 
+echo "Creating ext4 file system..."
+mkfs.ext4 $"/dev/$FS_PART"
 
+echo "Initializing swap..."
+mkswap $"/dev/$SWAP_PART"
+swapon $"/dev/$SWAP_PART"
 
+echo "Formatting EFI partition..."
+mkfs.fat -F32 $"/dev/$EFI_PART"
+
+echo "Mounting root volume..."
+mount $"/dev/$FS_PART" /mnt
+
+# Install Base System
+echo "Installing base system packages..."
+pacstrap /mnt base linux linux-firmware
+
+# Move on to config
+echo "\n\nBasic installation steps finished."
+read -q "CONFIRM?Would you like to continue with configuration? ([y] to proceed)" && config
+
+echo "\nFinished! This file will now self-delete."
+echo "\nThank you for using my installer! :)"
+
+# Delete this file
+rm -f ${0:a}
