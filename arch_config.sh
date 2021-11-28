@@ -11,24 +11,6 @@ echo "Press any key to continue..."
 read -k1 -s
 echo "\n"
 
-# Generate file system table
-echo "Generating file system table..."
-genfstab -U /mnt >> /mnt/etc/fstab
-if [ $? -ne 0 ]
-then
-	echo "ERROR: fstab generation failed. Aborting config..."
-	exit $?
-fi
-
-# Chroot into system
-echo "Chrooting..."
-arch-chroot /mnt
-if [ $? -ne 0 ]
-then
-	echo "ERROR: chroot failed. Aborting config..."
-	exit $?
-fi
-
 # Select region
 while
 do

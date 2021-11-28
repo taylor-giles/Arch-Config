@@ -57,9 +57,9 @@ config () {
 	echo "Getting config script..."
 	curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_config.sh > arch_config.sh
 
-	echo "Starting config script..."
+	echo "Chrooting to run config script..."
 	chmod +x arch_config.sh
-	./arch_config.sh $EFI
+	arch-chroot /mnt ./arch_config.sh $EFI
 }
 
 # Welcome
@@ -68,7 +68,7 @@ echo "\n\n*************************************"
 echo "**** Welcome to the Taylor Giles ****"
 echo "******** Arch Linux Installer *******"
 echo "*************************************"
-echo "\n\n(Press Ctrl+C at any time to exit the installer.)"
+echo "\n(Press Ctrl+C at any time to exit the installer.)"
 echo "\nIMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
 echo "If you do not have these partitions prepared, please exit with Ctrl+C and partition now."
 
@@ -141,6 +141,15 @@ pacstrap /mnt base linux linux-firmware
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Base system package install failed. Aborting install..."
+	exit $?
+fi
+
+# Generate file system table
+echo "Generating file system table..."
+genfstab -U /mnt >> /mnt/etc/fstab
+if [ $? -ne 0 ]
+then
+	echo "ERROR: fstab generation failed. Aborting config..."
 	exit $?
 fi
 
