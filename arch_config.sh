@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/bin/bash
 
 # Welcome
 echo "\n\n\n\nWelcome to the Taylor Giles Arch Configuration script!"
@@ -12,7 +12,7 @@ read -k1 -s
 echo "\n"
 
 # Select region
-while
+while true
 do
     echo "\nAvailable regions:"
     ls /usr/share/zoneinfo/
@@ -25,7 +25,7 @@ do
 done
 
 # Select city
-while
+while true
 do
     echo "\nAvailable cities in ${REGION}:"
     ls "/usr/share/zoneinfo/$REGION"
