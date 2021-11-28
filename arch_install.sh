@@ -59,7 +59,7 @@ config () {
 
 	echo "Starting config script..."
 	chmod +x arch_config.sh
-	./arch_config.sh
+	./arch_config.sh $EFI
 }
 
 # Welcome
