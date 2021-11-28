@@ -75,6 +75,11 @@ echo "If you do not have these partitions prepared, please exit with Ctrl+C and 
 # Update clock
 echo "\nUpdating system clock..."
 timedatectl set-ntp true
+if [ $? -ne 0 ]
+then
+	echo "ERROR: System clock not updated. Aborting install..."
+	exit $?
+fi
 
 # Set up Partitions
 while
@@ -88,20 +93,51 @@ done
 
 echo "Creating ext4 file system..."
 mkfs.ext4 $"/dev/$FS_PART"
+if [ $? -ne 0 ]
+then
+	echo "ERROR: ext4 file system not created. Aborting install..."
+	exit $?
+fi
 
 echo "Initializing swap..."
 mkswap $"/dev/$SWAP_PART"
+if [ $? -ne 0 ]
+then
+	echo "ERROR: mkswap failed. Aborting install..."
+	exit $?
+fi
+
 swapon $"/dev/$SWAP_PART"
+if [ $? -ne 0 ]
+then
+	echo "ERROR: swapon failed. Aborting install..."
+	exit $?
+fi
 
 echo "Formatting EFI partition..."
 mkfs.fat -F32 $"/dev/$EFI_PART"
+if [ $? -ne 0 ]
+then
+	echo "ERROR: EFI partition not formatted. Aborting install..."
+	exit $?
+fi
 
 echo "Mounting root volume..."
 mount $"/dev/$FS_PART" /mnt
+if [ $? -ne 0 ]
+then
+	echo "ERROR: root volume not mounted. Aborting install..."
+	exit $?
+fi
 
 # Install Base System
 echo "Installing base system packages..."
 pacstrap /mnt base linux linux-firmware
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Base system package install failed. Aborting install..."
+	exit $?
+fi
 
 # Move on to config
 echo "\n\nBasic installation steps finished."
