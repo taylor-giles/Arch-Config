@@ -19,34 +19,40 @@ config () {
 	arch-chroot /mnt ./arch_config.sh $EFI
 }
 
-# Welcome
 clear
-echo -e "\n\n************************************"
-echo -e "********** Welcome to the **********"
-echo -e "******* Arch Linux Assistant *******"
-echo -e "********** by Taylor Giles *********"
-echo -e "************************************\n"
-
-echo -e "Please select your desired action:"
-
-select ACTION in Install Configure Reboot Quit
+while true
 do
-    case $os in
-        # Install
-        "Install")
-        install
-        ;;
+    # Welcome
+    echo -e "\n\n\n\n\n************************************"
+    echo -e "********** Welcome to the **********"
+    echo -e "******* Arch Linux Assistant *******"
+    echo -e "********** by Taylor Giles *********"
+    echo -e "************************************\n"
 
-        # Config
-        "Configure")
-        config
-        ;;
+    echo -e "Please select your desired action:"
 
-        # Quit
-        "Quit")
-        break
-        ;;
-    esac
+    select ACTION in Install Configure Reboot Quit
+    do
+        case $ACTION in
+            # Install
+            "Install")
+            install
+            break
+            ;;
+
+            # Config
+            "Configure")
+            config
+            break
+            ;;
+
+            # Quit
+            "Quit")
+            echo -e "\nThank you for using my script! :)"
+            exit 0
+            ;;
+        esac
+    done
 done
 
 #Finish
