@@ -53,7 +53,7 @@ fi
 
 # Add locale
 echo -e "Adding en_US.UTF-8 to locales..."
-echo -e "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 if [ $? -ne 0 ]
 then
 	echo -e "ERROR: Failed to add locale. Aborting config..."
@@ -82,9 +82,9 @@ fi
 
 # Create hosts file
 echo -e "Creating hosts file..."
-echo -e "127.0.0.1     localhost" >> /etc/hosts
-echo -e "::1           localhost" >> /etc/hosts
-echo -e "127.0.1.1	${HOSTNAME}.localdomain     ${HOSTNAME}" >> /etc/hosts
+echo "127.0.0.1     localhost" >> /etc/hosts
+echo "::1           localhost" >> /etc/hosts
+echo "127.0.1.1	${HOSTNAME}.localdomain     ${HOSTNAME}" >> /etc/hosts
 
 # Set root password
 echo -e "Set up your root password now."
