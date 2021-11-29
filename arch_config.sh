@@ -70,7 +70,7 @@ then
 fi
 
 # Set hostname
-echo -e "Set your hostname now."
+echo -e "\nSet your hostname now."
 read -p "Enter the hostname for this computer: " HOSTNAME
 echo -e "Setting $HOSTNAME as hostname..."
 echo -e "$HOSTNAME" >> /etc/hostname
@@ -87,7 +87,7 @@ echo "::1           localhost" >> /etc/hosts
 echo "127.0.1.1	${HOSTNAME}.localdomain     ${HOSTNAME}" >> /etc/hosts
 
 # Set root password
-echo -e "Set up your root password now."
+echo -e "\nSet up your root password now."
 passwd
 if [ $? -ne 0 ]
 then
@@ -96,7 +96,7 @@ then
 fi
 
 # Set up users
-while
+while true
 do
     echo -e ""
     read -q "CONFIRM?Would you like to set up another user? ([y] to proceed)" && echo -e "" || break
