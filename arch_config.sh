@@ -213,4 +213,9 @@ then
 	exit $?
 fi
 
-echo -e "\n\nDone! Thank you for using my configurator! :)"
+echo -e "\n\nDone!"
+echo -e "This file (arch_config.sh) will now self-delete."
+echo -e "Thank you for using my configurator! :)"
+
+# Delete this file
+rm -f ${0:a}

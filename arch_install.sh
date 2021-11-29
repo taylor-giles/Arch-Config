@@ -52,24 +52,9 @@ select_partitions () {
 	done
 }
 
-# Define config function
-config () {
-	echo "Getting config script..."
-	curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_config.sh > /mnt/arch_config.sh
-
-	echo "Chrooting to run config script..."
-	chmod +x /mnt/arch_config.sh
-	arch-chroot /mnt ./arch_config.sh $EFI
-}
-
 # Welcome
-clear
-echo "\n\n*************************************"
-echo "**** Welcome to the Taylor Giles ****"
-echo "******** Arch Linux Installer *******"
-echo "*************************************"
-echo "\n(Press Ctrl+C at any time to exit the installer.)"
-echo "\nIMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
+echo "\nWelcome to the Taylor Giles Arch Linux installer!"
+echo "IMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
 echo "If you do not have these partitions prepared, please exit with Ctrl+C and partition now."
 
 # Update clock
@@ -153,12 +138,10 @@ then
 	exit $?
 fi
 
-# Move on to config
+# Finish
 echo "\n\nBasic installation steps finished."
-read -q "CONFIRM?Would you like to continue with configuration? ([y] to proceed)" && config
-
-echo "\nFinished! This file will now self-delete."
-echo "\nThank you for using my installer! :)"
+echo "This file (arch_install.sh) will now self-delete."
+echo "Thank you for using my installer! :)"
 
 # Delete this file
 rm -f ${0:a}
