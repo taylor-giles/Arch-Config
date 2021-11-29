@@ -2,9 +2,9 @@
 
 # Welcome
 echo -e "\n\n\n\nWelcome to the Taylor Giles Arch Configuration script!"
-echo -e "\n(Press Ctrl+C at any time to exit the script.)"
+echo -e "\n(Press Ctrl+Z at any time to exit the script.)"
 echo -e "\nIMPORTANT: This script assumes that you have already completed basic installation of Arch Linux."
-echo -e "If you have not yet installed Arch, please exit with Ctrl+C and run arch_install.sh now."
+echo -e "If you have not yet installed Arch, please exit with Ctrl+C or Ctrl+ Z and run arch_install.sh now."
 echo -e "\n\n\n"
 
 echo -e "Press any key to continue..."
@@ -16,7 +16,7 @@ while true
 do
     echo -e "\nAvailable regions:"
     ls /usr/share/zoneinfo/
-    read -p "\nEnter your region: " REGION
+    read -p "Enter your region: " REGION
 
     # Validate selection
     [ -d "/usr/share/zoneinfo/$REGION" ] && break || echo -e "Region $REGION not found."
@@ -27,14 +27,10 @@ while true
 do
     echo -e "\nAvailable cities in ${REGION}:"
     ls "/usr/share/zoneinfo/$REGION"
-    read -p "\nEnter your city: " city
+    read -p "Enter your city: " city
 
     # Validate selection
-    if grep -q $CITY "/usr/share/zoneinfo/$REGION"; then
-        break
-    else 
-        echo -e "City $CITY not found in region $REGION"
-    fi
+    [ -f "/usr/share/zoneinfo/$REGION/$CITY" ] && break || echo -e "City $CITY not found in region $REGION"
 done
 
 # Set time zone
@@ -102,7 +98,8 @@ fi
 # Set up users
 while
 do
-    read -q "CONFIRM?\nWould you like to set up another user? ([y] to proceed)" && echo -e "\n" || break
+    echo -e ""
+    read -q "CONFIRM?Would you like to set up another user? ([y] to proceed)" && echo -e "" || break
     read -p "Enter the user name for the new user: " USERNAME
     echo -e "Creating new user..."
     useradd -m ${USERNAME}
