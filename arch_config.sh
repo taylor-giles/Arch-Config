@@ -171,12 +171,12 @@ then
 	echo -e "${PARTITION_STRING//part/""}"
     PARTITION_STRING="$(lsblk -l -o name,type | grep part)"
     PARTITION_STRING="${PARTITION_STRING//part/" "}"
-    PARTITION_OPTIONS=($PARTITION_STRING) #TODO: Fix this
+    PARTITION_OPTIONS=($PARTITION_STRING)
 
 	# Select EFI partition
 	echo -e "\n"
 	PS3="Select the EFI partition to mount boot directory: "
-	select EFI_PART in $PARTITION_OPTIONS 
+	select EFI_PART in ${PARTITION_OPTIONS[@]} 
 	do
 		if [ -z $EFI_PART ]
 		then
