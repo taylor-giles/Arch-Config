@@ -166,6 +166,7 @@ EFI="$1"
 if [ -z $EFI ]
 then 
 	# Print out available partition options and save them to array
+    echo -e "\n\n----- Partition Selection -----"
 	echo -e "\nAvailable partitions:"
     PARTITION_STRING="$(lsblk -l -o name,size,type | grep part)"
 	echo -e "${PARTITION_STRING//part/""}"
@@ -174,7 +175,7 @@ then
     PARTITION_OPTIONS=($PARTITION_STRING)
 
 	# Select EFI partition
-	echo -e "\n"
+	echo -e ""
 	PS3="Select the EFI partition to mount boot directory: "
 	select EFI_PART in ${PARTITION_OPTIONS[@]} 
 	do

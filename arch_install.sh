@@ -73,8 +73,9 @@ do
 
 	# Confirm choices
 	echo "\n\nChosen partitions:\nEFI:        $EFI_PART\nSWAP:       $SWAP_PART\nFILESYSTEM: $FS_PART\n"
-	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "\nRepeating partition selection\n\n"
+	read -q "CONFIRM?Is this correct? ([y] to proceed)" && break || echo "\nRepeating partition selection"
 done
+echo ""
 
 # Add /dev/ and remove whitespace
 EFI=$(echo "/dev/$EFI_PART" | xargs)
