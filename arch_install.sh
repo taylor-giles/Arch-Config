@@ -140,8 +140,4 @@ fi
 
 # Finish
 echo "\n\nBasic installation steps finished."
-echo "This file (arch_install.sh) will now self-delete."
 echo "Thank you for using my installer! :)"
-
-# Delete this file
-rm -f ${0:a}

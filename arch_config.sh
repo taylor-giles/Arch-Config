@@ -2,9 +2,8 @@
 
 # Welcome
 echo -e "\n\n\n\nWelcome to the Taylor Giles Arch Configuration script!"
-echo -e "\n(Press Ctrl+Z at any time to exit the script.)"
-echo -e "\nIMPORTANT: This script assumes that you have already completed basic installation of Arch Linux."
-echo -e "If you have not yet installed Arch, please exit with Ctrl+C or Ctrl+Z and run arch_install.sh now."
+echo -e "IMPORTANT: This script assumes that you have already completed basic installation of Arch Linux."
+echo -e "If you have not yet installed Arch, please exit and run install Arch now."
 echo -e "\n\n\n"
 
 echo -e "Press any key to continue..."
@@ -100,7 +99,8 @@ while true
 do
     echo -e ""
     read -p "Would you like to set up another user? [Y/N]" -r CONFIRM
-    [[ ! $CONFIRM =~ ^[Yy]$ ]] && break || echo -e ""
+    echo -e ""
+    [[ ! $CONFIRM =~ ^[Yy]$ ]] && break
 
     read -p "Enter the user name for the new user: " USERNAME
     echo -e "Creating new user..."
@@ -171,7 +171,7 @@ then
 	echo -e "${PARTITION_STRING//part/""}"
     PARTITION_STRING="$(lsblk -l -o name,type | grep part)"
     PARTITION_STRING="${PARTITION_STRING//part/" "}"
-    PARTITION_OPTIONS=($PARTITION_STRING)
+    PARTITION_OPTIONS=($PARTITION_STRING) #TODO: Fix this
 
 	# Select EFI partition
 	echo -e "\n"
@@ -216,9 +216,6 @@ then
 	exit $?
 fi
 
+# Finish
 echo -e "\n\nDone!"
-echo -e "This file (arch_config.sh) will now self-delete."
 echo -e "Thank you for using my configurator! :)"
-
-# Delete this file
-rm -f ${0:a}

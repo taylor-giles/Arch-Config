@@ -8,6 +8,9 @@ install () {
     echo "Running install script..."
     chmod +x arch_install.sh
     ./arch_install.sh
+
+    echo "Deleting arch_install.sh script..."
+    rm -f arch_install.sh
 }
 
 config () {
@@ -17,6 +20,10 @@ config () {
 	echo "Chrooting to run config script..."
 	chmod +x /mnt/arch_config.sh
 	arch-chroot /mnt ./arch_config.sh $EFI
+
+    # Delete script
+    echo "Deleting arch_config.sh script..."
+    rm -f /mnt/arch_config.sh
 }
 
 clear
@@ -56,4 +63,4 @@ do
 done
 
 #Finish
-echo -e "\nThank you for using my script! :)"
+echo -e "\nThank you for using my scripts! :)"
