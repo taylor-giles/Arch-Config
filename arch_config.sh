@@ -99,7 +99,9 @@ fi
 while true
 do
     echo -e ""
-    read -q "CONFIRM?Would you like to set up another user? ([y] to proceed)" && echo -e "" || break
+    read -p "Would you like to set up another user? [Y/N]" -r CONFIRM
+    [[ ! $CONFIRM =~ ^[Yy]$ ]] && break || echo -e ""
+
     read -p "Enter the user name for the new user: " USERNAME
     echo -e "Creating new user..."
     useradd -m ${USERNAME}
