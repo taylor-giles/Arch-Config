@@ -167,8 +167,11 @@ if [ -z $EFI ]
 then 
 	# Print out available partition options and save them to array
 	echo -e "\nAvailable partitions:"
-	echo -e "${$(lsblk -l -o name,size,type | grep part)//part/""}"
-	PARTITION_OPTIONS=(${(f)"${$(lsblk -l -n -o name,type | grep part)//part/" "}"})
+    PARTITION_STRING="$(lsblk -l -o name,size,type | grep part)"
+	echo -e "${PARTITION_STRING//part/""}"
+    PARTITION_STRING="$(lsblk -l -o name,type | grep part)"
+    PARTITION_STRING="${PARTITION_STRING//part/" "}"
+    PARTITION_OPTIONS=($PARTITION_STRING)
 
 	# Select EFI partition
 	echo -e "\n"
