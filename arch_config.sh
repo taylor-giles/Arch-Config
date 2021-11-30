@@ -217,6 +217,33 @@ then
 	exit $?
 fi
 
+# Update system
+echo -e "Updating system..."
+pacman -Syu --noconfirm
+if [ $? -ne 0 ]
+then
+	echo -e "ERROR: Failed to update system. Aborting config..."
+	exit $?
+fi
+
+# Install network manager
+echo -e "Installing network manager..."
+pacman S networkmanager --noconfirm
+if [ $? -ne 0 ]
+then
+	echo -e "ERROR: Failed to install networkmanager. Aborting config..."
+	exit $?
+fi
+
+# Enable network manager
+echo -e "Enabling NetworkManager..."
+systemctl enable NetworkManager
+if [ $? -ne 0 ]
+then
+	echo -e "ERROR: Failed to enable NetworkManager. Aborting config..."
+	exit $?
+fi
+
 # Finish
 echo -e "\n\nDone!"
 echo -e "Thank you for using my configurator! :)"
