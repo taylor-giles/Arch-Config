@@ -26,6 +26,19 @@ config () {
     rm -f /mnt/arch_config.sh
 }
 
+install_de () {
+    echo "Getting DE Install script..."
+    curl -L "${URL}de_install.sh" > /mnt/de_install.sh
+
+    echo "Chrooting to run DE Install script..."
+    chmod +x /mnt/de_install.sh
+    arch-chroot /mnt ./de_install.sh
+
+    # Delete script
+    echo "Deleting de_install.sh script..."
+    rm -f /mnt/de_install.sh
+}
+
 clear
 while true
 do
@@ -38,7 +51,7 @@ do
 
     echo -e "Please select your desired action:"
 
-    select ACTION in Install Configure Reboot Quit
+    select ACTION in Install Configure "Install Desktop Environment" Reboot Quit
     do
         case $ACTION in
             # Install
@@ -53,10 +66,28 @@ do
             break
             ;;
 
+            # DE
+            "Install Desktop Environment")
+            install_de
+            break
+            ;;
+
+            #Reboot
+            "Reboot")
+            reboot
+            break
+            ;;
+
             # Quit
             "Quit")
             echo -e "\nThank you for using my script! :)"
             exit 0
+            ;;
+
+            # Default
+            *)
+            echo -e "\nPlease make a valid selection."
+            break
             ;;
         esac
     done

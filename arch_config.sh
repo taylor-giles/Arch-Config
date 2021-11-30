@@ -244,6 +244,15 @@ then
 	exit $?
 fi
 
+# Install base-devel
+echo -e "Installing base-devel..."
+pacman -S base-devel --noconfirm
+if [ $? -ne 0 ]
+then
+	echo -e "ERROR: Failed to install base-devel. Aborting config..."
+	exit $?
+fi
+
 # Finish
 echo -e "\n\nDone!"
 echo -e "Thank you for using my configurator! :)"
