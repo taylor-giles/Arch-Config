@@ -29,7 +29,7 @@ then
 fi
 
 # Install video driver
-echo -e "Preparing to install graphics driver."
+echo -e "\nPreparing to install graphics driver."
 echo -e "Please select the option which best matches your graphics hardware, or skip this step:"
 select DRIVER_TYPE in AMD Intel NVIDIA VirtualBox Skip
 do
@@ -100,7 +100,7 @@ fi
 
 # Install plasma applications
 echo -e "Installing KDE applications..."
-pacmanm -S kde-applications
+pacman -S kde-applications
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Failed to install KDE applications. Aborting install..."
