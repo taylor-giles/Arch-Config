@@ -228,7 +228,7 @@ fi
 
 # Install network manager
 echo -e "Installing network manager..."
-pacman S networkmanager --noconfirm
+pacman -S networkmanager --noconfirm
 if [ $? -ne 0 ]
 then
 	echo -e "ERROR: Failed to install networkmanager. Aborting config..."
