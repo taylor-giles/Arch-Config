@@ -9,24 +9,6 @@ echo -e "\n\n\n"
 read -p "Press [ENTER] to continue..."
 echo -e "\n"
 
-# Install Xorg
-echo -e "Installing xorg..."
-pacman -S xorg xorg-xinit --noconfirm
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to install xorg. Aborting install..."
-	exit $?
-fi
-
-# Install mesa
-echo -e "Installing mesa..."
-pacman -S mesa --noconfirm
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to install mesa. Aborting install..."
-	exit $?
-fi
-
 # Install video driver
 echo -e "\nPreparing to install graphics driver."
 echo -e "Please select the option which best matches your graphics hardware, or skip this step:"
@@ -70,6 +52,24 @@ then
 	exit $?
 fi
 
+# Install Xorg
+echo -e "Installing xorg..."
+pacman -S xorg xorg-xinit --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install xorg. Aborting install..."
+	exit $?
+fi
+
+# Install mesa
+echo -e "Installing mesa..."
+pacman -S mesa --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install mesa. Aborting install..."
+	exit $?
+fi
+
 # Install sddm
 echo -e "Installing SDDM..."
 pacman -S sddm --noconfirm
@@ -90,7 +90,7 @@ fi
 
 # Install plasma
 echo -e "Installing plasma via plasma-meta..."
-pacman -S plasma-meta
+pacman -S plasma-meta --no-confirm
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Failed to install plasma-meta. Aborting install..."
@@ -99,7 +99,7 @@ fi
 
 # Install plasma applications
 echo -e "Installing KDE applications..."
-pacman -S kde-applications
+pacman -S kde-applications --no-confirm
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Failed to install KDE applications. Aborting install..."
