@@ -1,7 +1,7 @@
 #!/bin/bash
 URL="https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/"
 
-full () {
+full_install () {
     echo -e "Beginning install process..."
     install
     if [ $? -eq 0 ]; then
@@ -23,7 +23,8 @@ full () {
         exit $?
     fi
 
-    echo -e "\n\n\n\nCongratulations! The full installation process is complete. "
+    echo -e "\n\n\n\nCongratulations! The full installation process is complete."
+    echo -e "It is recommended to reboot your system at this time."
 }
 
 install () {
