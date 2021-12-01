@@ -1,6 +1,31 @@
 #!/bin/bash
 URL="https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/"
 
+full () {
+    echo -e "Beginning install process..."
+    install
+    if [ $? -eq 0 ]; then
+        echo "Install script failed. Aborting full installation..."
+        exit $?
+    fi
+
+    echo -e "Beginning config process..."
+    config
+    if [ $? -eq 0 ]; then
+        echo "Config script failed. Aborting full installation..."
+        exit $?
+    fi
+
+    echo -e "Beginning DE install process..."
+    install_de
+    if [ $? -eq 0 ]; then
+        echo "DE install script failed. Aborting full installation..."
+        exit $?
+    fi
+
+    echo -e "\n\n\n\nCongratulations! The full installation process is complete. "
+}
+
 install () {
     echo "Getting install script..."
     curl -L "${URL}arch_install.sh" > arch_install.sh
@@ -28,15 +53,15 @@ config () {
 
 install_de () {
     echo "Getting DE Install script..."
-    curl -L "${URL}de_install.sh" > /mnt/de_install.sh
+    curl -L "${URL}arch_de_install.sh" > /mnt/arch_de_install.sh
 
     echo "Chrooting to run DE Install script..."
-    chmod +x /mnt/de_install.sh
-    arch-chroot /mnt ./de_install.sh
+    chmod +x /mnt/arch_de_install.sh
+    arch-chroot /mnt ./arch_de_install.sh
 
     # Delete script
     echo "Deleting de_install.sh script..."
-    rm -f /mnt/de_install.sh
+    rm -f /mnt/arch_de_install.sh
 }
 
 clear
@@ -51,9 +76,15 @@ do
 
     echo -e "Please select your desired action:"
 
-    select ACTION in Install Configure "Install Desktop Environment" Reboot Quit
+    COLUMNS=1 select ACTION in "Full Install" Install Configure "Install Desktop Environment" Reboot Quit
     do
         case $ACTION in
+            # Full Install
+            "Full Install")
+            full_install
+            break
+            ;;
+
             # Install
             "Install")
             install
@@ -93,5 +124,5 @@ do
     done
 done
 
-#Finish
+# Finish
 echo -e "\nThank you for using my scripts! :)"
