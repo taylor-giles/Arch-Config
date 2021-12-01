@@ -83,7 +83,8 @@ do
 
     echo -e "Please select your desired action:"
 
-    COLUMNS=1 select ACTION in "Full Install" Install Configure "Install Desktop Environment" Reboot Quit
+    COLUMNS=1 
+    select ACTION in "Full Install" Install Configure "Install Desktop Environment" Reboot Quit
     do
         case $ACTION in
             # Full Install
