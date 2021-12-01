@@ -1,14 +1,5 @@
 #!/usr/bin/env zsh
 
-# Welcome
-echo -e "\n\n\n\nWelcome to the Taylor Giles Arch Base Installation script!"
-echo -e "IMPORTANT: This script assumes that you have already have EFI, SWAP, and FILESYSTEM partitions."
-echo -e "If you do not yet have these partitions, please exit and partition now."
-echo -e "\n\n\n"
-
-read -p "Press [ENTER] to continue..."
-echo -e "\n"
-
 # Define partition selection function
 select_partitions () {
 	echo "\n\n----- Partition Selection -----"
@@ -65,6 +56,9 @@ select_partitions () {
 echo "\nWelcome to the Taylor Giles Arch Linux installer!"
 echo "IMPORTANT: This installer assumes that you already have EFI, SWAP, and filesystem partitions."
 echo "If you do not have these partitions prepared, please exit with Ctrl+C and partition now."
+
+read "?Press [ENTER] to continue..."
+echo "\n"
 
 # Update clock
 echo "\nUpdating system clock..."
