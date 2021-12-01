@@ -4,7 +4,7 @@
 echo -e "\n\n\n\nWelcome to the Taylor Giles Desktop Environment install script!"
 echo -e "IMPORTANT: This script assumes that you have already completed basic installation of Arch Linux."
 echo -e "If you have not yet installed Arch, please exit and install Arch now."
-echo -e "\n\n\n"
+echo -e "\n"
 
 read -p "Press [ENTER] to continue..."
 echo -e "\n"
