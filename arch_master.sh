@@ -33,9 +33,11 @@ install () {
     echo "Running install script..."
     chmod +x arch_install.sh
     ./arch_install.sh
+    out=$?
 
     echo "Deleting arch_install.sh script..."
     rm -f arch_install.sh
+    return out
 }
 
 config () {
@@ -45,10 +47,12 @@ config () {
 	echo "Chrooting to run config script..."
 	chmod +x /mnt/arch_config.sh
 	arch-chroot /mnt ./arch_config.sh $EFI
+    out=$?
 
     # Delete script
     echo "Deleting arch_config.sh script..."
     rm -f /mnt/arch_config.sh
+    return out
 }
 
 install_de () {
@@ -58,10 +62,12 @@ install_de () {
     echo "Chrooting to run DE Install script..."
     chmod +x /mnt/arch_de_install.sh
     arch-chroot /mnt ./arch_de_install.sh
+    out=$?
 
     # Delete script
     echo "Deleting de_install.sh script..."
     rm -f /mnt/arch_de_install.sh
+    return out
 }
 
 clear
