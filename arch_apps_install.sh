@@ -21,7 +21,7 @@ select_basics() {
 }
 
 install_basics() {
-    for item in "{$BASICS[@]}"
+    for item in ${BASICS[*]}
     do
         case $item in 
             "Nano")
@@ -81,7 +81,7 @@ select_ides() {
 }
 
 install_ides() {
-    for item in "{$IDES[@]}"
+    for item in ${IDES[*]}
     do
         case $item in 
             "VSCode")
@@ -127,7 +127,7 @@ select_browsers () {
 }
 
 install_browsers () {
-    for item in "{$BROWSERS[@]}"
+    for item in ${BROWSERS[*]}
     do
         case $item in 
             # Firefox
@@ -165,7 +165,7 @@ select_desktops () {
 }
 
 install_desktops() {
-    for item in "{$DESKTOPS[@]}"
+    for item in ${DESKTOPS[*]}
     do
         case $item in 
             # Minimal KDE Plasma
