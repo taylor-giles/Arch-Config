@@ -1,5 +1,116 @@
 #!/bin/bash
 
+##         ##
+##  BASIC  ##
+##         ##
+select_basics() {
+    exec 3>&1
+    BASICS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which apps you would like to install." 75 40 5 \
+        Nano "" on \
+        Vim "" off \
+        gedit "" on \
+        htop "" on \
+        feh "" on \
+        Okular "" on \
+        VLC "" on \
+        Alacritty "" on \
+        Nitrogen "" on \
+        2>&1 1>&3))
+    exec 3>&-
+    clear
+}
+
+install_basics() {
+    for item in "{$BASICS[@]}"
+    do
+        case $item in 
+            "Nano")
+                pacman -S nano --noconfirm
+                break;;
+
+            "Vim")
+                pacman -S vim --noconfirm
+                break;;
+
+            "gedit")
+                pacman -S gedit --noconfirm
+                break;;
+
+            "htop")
+                pacman -S htop --noconfirm
+                break;;
+
+            "feh")
+                pacman -S feh --noconfirm
+                break;;
+
+            "Okular")
+                pacman -S okular --noconfirm
+                break;;
+
+            "VLC")
+                pacman -S vlc --noconfirm
+                break;;
+
+            "Alacritty")
+                pacman -S alacritty --noconfirm
+                break;;
+
+            "Nitrogen")
+                pacman -S nitrogen --noconfirm
+                break;;
+        esac
+    done 
+}
+
+##        ##
+##  IDEs  ##
+##        ##
+select_ides() {
+    exec 3>&1
+    IDES=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which IDEs you would like to install." 75 40 5 \
+        VSCode "" on \
+        Emacs "" off \
+        IntelliJ "" on \
+        PyCharm "" off \
+        "Android Studio" "(AUR)" off \
+        Arduino "" off \
+        2>&1 1>&3))
+    exec 3>&-
+    clear
+}
+
+install_ides() {
+    for item in "{$IDES[@]}"
+    do
+        case $item in 
+            "VSCode")
+                pacman -S code --noconfirm
+                break;;
+
+            "Emacs")
+                pacman -S emacs --noconfirm
+                break;;
+
+            "IntelliJ")
+                pacman -S intellij-idea-community-edition --noconfirm
+                break;;
+
+            "PyCharm")
+                pacman -S pycharm-community-edition --noconfirm
+                break;;
+
+            "Android Studio")
+                yay -S android-studio --noconfirm
+                break;;
+
+            "Arduino")
+                pacman -S arduino arduino-avr-core --noconfirm
+                break;;
+        esac
+    done 
+}
+
 ##            ##
 ##  BROWSERS  ##
 ##            ##
@@ -12,6 +123,7 @@ select_browsers () {
         Chrome "(AUR)" off \
         2>&1 1>&3))
     exec 3>&-
+    clear
 }
 
 install_browsers () {
@@ -49,6 +161,7 @@ select_desktops () {
         "Plasma (Full)" "" off \
         2>&1 1>&3))
     exec 3>&-
+    clear
 }
 
 install_desktops() {
@@ -100,7 +213,7 @@ install_desktops() {
 
 
 # Welcome
-echo -e "\n\n\n\nWelcome to the Taylor Giles Desktop Environment install script!"
+echo -e "\n\n\n\nWelcome to the Taylor Giles Arch Applications install script!"
 echo -e "IMPORTANT: This script assumes that you have already completed basic installation of Arch Linux."
 echo -e "If you have not yet installed Arch, please exit and install Arch now."
 echo -e "\n"
@@ -169,7 +282,7 @@ then
 	exit $?
 fi
 
-# Install sddm
+# Install SDDM
 echo -e "Installing SDDM..."
 pacman -S sddm --noconfirm
 if [ $? -ne 0 ]
@@ -209,10 +322,14 @@ fi
 
 
 # Make selections
+select_basics()
 select_desktops()
 select_browsers()
+select_ides()
 
 # Do installations
+install_basics()
 install_desktops()
 install_browsers()
+install_ides()
 

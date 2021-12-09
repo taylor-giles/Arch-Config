@@ -16,10 +16,10 @@ full_install () {
         exit $?
     fi
 
-    echo -e "Beginning DE install process..."
-    install_de
+    echo -e "Beginning additional apps install process..."
+    install_apps
     if [ $? -eq 0 ]; then
-        echo "DE install script failed. Aborting full installation..."
+        echo "Apps install script failed. Aborting full installation..."
         exit $?
     fi
 
@@ -34,11 +34,11 @@ install () {
     echo "Running install script..."
     chmod +x arch_install.sh
     ./arch_install.sh
-    out=$?
+    retval=$?
 
     echo "Deleting arch_install.sh script..."
     rm -f arch_install.sh
-    return out
+    return $retval
 }
 
 config () {
@@ -48,12 +48,12 @@ config () {
 	echo "Chrooting to run config script..."
 	chmod +x /mnt/arch_config.sh
 	arch-chroot /mnt ./arch_config.sh $EFI
-    out=$?
+    retval=$?
 
     # Delete script
     echo "Deleting arch_config.sh script..."
     rm -f /mnt/arch_config.sh
-    return out
+    return $retval
 }
 
 install_apps () {
@@ -63,12 +63,12 @@ install_apps () {
     echo "Chrooting to run apps install script..."
     chmod +x /mnt/arch_apps_install.sh
     arch-chroot /mnt ./arch_apps_install.sh
-    out=$?
+    retval=$?
 
     # Delete script
     echo "Deleting apps_install.sh script..."
     rm -f /mnt/arch_apps_install.sh
-    return out
+    return $retval
 }
 
 clear
@@ -134,3 +134,4 @@ done
 
 # Finish
 echo -e "\nThank you for using my scripts! :)"
+exit 0
