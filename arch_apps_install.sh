@@ -221,6 +221,15 @@ echo -e "\n"
 read -p "Press [ENTER] to continue..."
 echo -e "\n"
 
+# Update system
+echo -e "Updating system..."
+pacman -Syu --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to update system. Aborting install..."
+	exit $?
+fi
+
 # Install video driver
 echo -e "\nPreparing to install graphics driver."
 echo -e "Please select the option which best matches your graphics hardware, or skip this step:"
