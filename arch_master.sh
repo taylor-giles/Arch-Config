@@ -56,18 +56,18 @@ config () {
     return out
 }
 
-install_de () {
-    echo "Getting DE Install script..."
-    curl -L "${URL}arch_de_install.sh" > /mnt/arch_de_install.sh
+install_apps () {
+    echo "Getting Apps Install script..."
+    curl -L "${URL}arch_apps_install.sh" > /mnt/arch_apps_install.sh
 
-    echo "Chrooting to run DE Install script..."
-    chmod +x /mnt/arch_de_install.sh
-    arch-chroot /mnt ./arch_de_install.sh
+    echo "Chrooting to run apps install script..."
+    chmod +x /mnt/arch_apps_install.sh
+    arch-chroot /mnt ./arch_apps_install.sh
     out=$?
 
     # Delete script
-    echo "Deleting de_install.sh script..."
-    rm -f /mnt/arch_de_install.sh
+    echo "Deleting apps_install.sh script..."
+    rm -f /mnt/arch_apps_install.sh
     return out
 }
 
@@ -105,9 +105,9 @@ do
             break
             ;;
 
-            # DE
-            "Install Desktop Environment")
-            install_de
+            # More Apps
+            "Install More Apps")
+            install_apps
             break
             ;;
 
