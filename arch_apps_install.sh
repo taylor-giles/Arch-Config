@@ -322,14 +322,14 @@ fi
 
 
 # Make selections
-select_basics()
-select_desktops()
-select_browsers()
-select_ides()
+select_basics
+select_desktops
+select_browsers
+select_ides
 
 # Do installations
-install_basics()
-install_desktops()
-install_browsers()
-install_ides()
+install_basics
+install_desktops
+install_browsers
+install_ides
 
