@@ -5,7 +5,7 @@
 ##         ##
 select_basics() {
     exec 3>&1
-    BASICS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which apps you would like to install." 75 40 5 \
+    BASICS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which apps you would like to install." 60 40 5 \
         Nano "" on \
         Vim "" off \
         gedit "" on \
@@ -21,7 +21,7 @@ select_basics() {
 }
 
 install_basics() {
-    for item in ${BASICS[*]}
+    for item in "${BASICS[@]}"
     do
         case $item in 
             "Nano")
@@ -68,7 +68,7 @@ install_basics() {
 ##        ##
 select_ides() {
     exec 3>&1
-    IDES=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which IDEs you would like to install." 75 40 5 \
+    IDES=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which IDEs you would like to install." 60 40 5 \
         VSCode "" on \
         Emacs "" off \
         IntelliJ "" on \
@@ -81,7 +81,7 @@ select_ides() {
 }
 
 install_ides() {
-    for item in ${IDES[*]}
+    for item in "${IDES[@]}"
     do
         case $item in 
             "VSCode")
@@ -116,7 +116,7 @@ install_ides() {
 ##            ##
 select_browsers () {
     exec 3>&1
-    BROWSERS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which browsers you would like to install." 75 40 5 \
+    BROWSERS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which browsers you would like to install." 60 40 5 \
         Firefox "" on \
         Konqueror "" on \
         Brave "(AUR)" off \
@@ -127,7 +127,7 @@ select_browsers () {
 }
 
 install_browsers () {
-    for item in ${BROWSERS[*]}
+    for item in "${BROWSERS[@]}"
     do
         case $item in 
             # Firefox
@@ -156,7 +156,7 @@ install_browsers () {
 ##            ##
 select_desktops () {
     exec 3>&1
-    DESKTOPS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which desktop environments you would like to install." 75 40 5 \
+    DESKTOPS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which desktop environments you would like to install." 60 40 5 \
         "Plasma (Minimal)" "" on \
         "Plasma (Full)" "" off \
         2>&1 1>&3))
@@ -165,7 +165,7 @@ select_desktops () {
 }
 
 install_desktops() {
-    for item in ${DESKTOPS[*]}
+    for item in "${DESKTOPS[@]}"
     do
         case $item in 
             # Minimal KDE Plasma
