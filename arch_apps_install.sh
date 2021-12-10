@@ -26,39 +26,39 @@ install_basics() {
         case $item in 
             "Nano")
                 pacman -S nano --noconfirm
-                break;;
+                ;;
 
             "Vim")
                 pacman -S vim --noconfirm
-                break;;
+                ;;
 
             "gedit")
                 pacman -S gedit --noconfirm
-                break;;
+                ;;
 
             "htop")
                 pacman -S htop --noconfirm
-                break;;
+                ;;
 
             "feh")
                 pacman -S feh --noconfirm
-                break;;
+                ;;
 
             "Okular")
                 pacman -S okular --noconfirm
-                break;;
+                ;;
 
             "VLC")
                 pacman -S vlc --noconfirm
-                break;;
+                ;;
 
             "Alacritty")
                 pacman -S alacritty --noconfirm
-                break;;
+                ;;
 
             "Nitrogen")
                 pacman -S nitrogen --noconfirm
-                break;;
+                ;;
         esac
     done 
 }
@@ -86,27 +86,27 @@ install_ides() {
         case $item in 
             "VSCode")
                 pacman -S code --noconfirm
-                break;;
+                ;;
 
             "Emacs")
                 pacman -S emacs --noconfirm
-                break;;
+                ;;
 
             "IntelliJ")
                 pacman -S intellij-idea-community-edition --noconfirm
-                break;;
+                ;;
 
             "PyCharm")
                 pacman -S pycharm-community-edition --noconfirm
-                break;;
+                ;;
 
             "Android Studio")
                 yay -S android-studio --noconfirm
-                break;;
+                ;;
 
             "Arduino")
                 pacman -S arduino arduino-avr-core --noconfirm
-                break;;
+                ;;
         esac
     done 
 }
@@ -133,19 +133,19 @@ install_browsers () {
             # Firefox
             "Firefox")
                 pacman -S firefox --noconfirm
-                break;;
+                ;;
 
             "Konqueror")
                 pacman -S konqueror --noconfirm
-                break;;
+                ;;
 
             "Brave")
                 yay -S brave-bin --noconfirm
-                break;;
+                ;;
 
             "Chrome")
                 yay -S google-chrome --noconfirm
-                break;;
+                ;;
         esac
     done 
 }
@@ -157,8 +157,8 @@ install_browsers () {
 select_desktops () {
     exec 3>&1
     DESKTOPS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which desktop environments you would like to install." 60 40 5 \
-        "Plasma (Minimal)" "" on \
-        "Plasma (Full)" "" off \
+        "Plasma - Minimal" "" on \
+        "Plasma - Full" "" off \
         2>&1 1>&3))
     exec 3>&-
     clear
@@ -169,7 +169,7 @@ install_desktops() {
     do
         case $item in 
             # Minimal KDE Plasma
-            "Plasma (Minimal)")
+            "Plasma - Minimal")
                 echo -e "Installing KDE Plasma desktop..."
                 pacman -S plasma-desktop --no-confirm
                 if [ $? -ne 0 ]
@@ -186,10 +186,10 @@ install_desktops() {
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
                     exit $?
                 fi
-                break;;
+                ;;
 
             # Full KDE Plasma
-            "Plasma (Full)")
+            "Plasma - Full")
                 echo -e "Installing Plasma via plasma-meta..."
                 pacman -S plasma-meta --no-confirm
                 if [ $? -ne 0 ]
@@ -206,7 +206,7 @@ install_desktops() {
                     echo "ERROR: Failed to install KDE applications. Aborting install..."
                     exit $?
                 fi
-                break;;
+                ;;
         esac
     done
 }
