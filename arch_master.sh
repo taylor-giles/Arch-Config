@@ -4,24 +4,12 @@ URL="https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/"
 full_install () {
     echo -e "Beginning install process..."
     install
-    if [ $? -eq 0 ]; then
-        echo "Install script failed. Aborting full installation..."
-        exit $?
-    fi
 
     echo -e "Beginning config process..."
     config
-    if [ $? -eq 0 ]; then
-        echo "Config script failed. Aborting full installation..."
-        exit $?
-    fi
 
     echo -e "Beginning additional apps install process..."
     install_apps
-    if [ $? -eq 0 ]; then
-        echo "Apps install script failed. Aborting full installation..."
-        exit $?
-    fi
 
     echo -e "\n\n\n\nCongratulations! The full installation process is complete."
     echo -e "It is recommended to reboot your system at this time."
@@ -34,11 +22,9 @@ install () {
     echo "Running install script..."
     chmod +x arch_install.sh
     ./arch_install.sh
-    retval=$?
 
     echo "Deleting arch_install.sh script..."
     rm -f arch_install.sh
-    return $retval
 }
 
 config () {
@@ -48,12 +34,10 @@ config () {
 	echo "Chrooting to run config script..."
 	chmod +x /mnt/arch_config.sh
 	arch-chroot /mnt ./arch_config.sh $EFI
-    retval=$?
 
     # Delete script
     echo "Deleting arch_config.sh script..."
     rm -f /mnt/arch_config.sh
-    return $retval
 }
 
 install_apps () {
@@ -63,12 +47,10 @@ install_apps () {
     echo "Chrooting to run apps install script..."
     chmod +x /mnt/arch_apps_install.sh
     arch-chroot /mnt ./arch_apps_install.sh
-    retval=$?
 
     # Delete script
     echo "Deleting apps_install.sh script..."
     rm -f /mnt/arch_apps_install.sh
-    return $retval
 }
 
 clear
