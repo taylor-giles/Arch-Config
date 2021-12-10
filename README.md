@@ -10,7 +10,7 @@ However, the system must have the appropriate disk partitions prior to running t
 Once your partitions are set up, the best way to use these scripts is by running the following commands:
 
 ```
-  curl -L https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_master.sh > arch_master.sh
+  curl https://raw.githubusercontent.com/taylor-giles/Arch-Config/master/arch_master.sh > arch_master.sh
   chmod +x arch_master.sh
   ./arch_master.sh
 ```
