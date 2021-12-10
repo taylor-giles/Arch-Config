@@ -157,8 +157,8 @@ install_browsers () {
 select_desktops () {
     exec 3>&1
     DESKTOPS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which desktop environments you would like to install." 60 40 5 \
-        "Plasma - Minimal" "" on \
-        "Plasma - Full" "" off \
+        "Plasma Minimal" "" on \
+        "Plasma Full" "" off \
         2>&1 1>&3))
     exec 3>&-
     clear
@@ -169,7 +169,7 @@ install_desktops() {
     do
         case $item in 
             # Minimal KDE Plasma
-            "Plasma - Minimal")
+            "Plasma Minimal")
                 echo -e "Installing KDE Plasma desktop..."
                 pacman -S plasma-desktop --no-confirm
                 if [ $? -ne 0 ]
@@ -189,7 +189,7 @@ install_desktops() {
                 ;;
 
             # Full KDE Plasma
-            "Plasma - Full")
+            "Plasma Full")
                 echo -e "Installing Plasma via plasma-meta..."
                 pacman -S plasma-meta --no-confirm
                 if [ $? -ne 0 ]
