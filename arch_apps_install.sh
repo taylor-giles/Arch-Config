@@ -69,7 +69,7 @@ install_basics() {
 select_ides() {
     exec 3>&1
     IDES=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which IDEs you would like to install." 60 40 5 \
-        VSCode "" on \
+        Code "" on \
         Emacs "" off \
         IntelliJ "" on \
         PyCharm "" off \
@@ -84,7 +84,7 @@ install_ides() {
     for item in "${IDES[@]}"
     do
         case $item in 
-            "VSCode")
+            "Code")
                 pacman -S code --noconfirm
                 ;;
 
