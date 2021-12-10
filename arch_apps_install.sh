@@ -171,7 +171,7 @@ install_desktops() {
             # Minimal KDE Plasma
             "Plasma_Minimal")
                 echo -e "Installing KDE Plasma desktop..."
-                pacman -S plasma-desktop --no-confirm
+                pacman -S plasma-desktop --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install plasma-desktop. Aborting install..."
@@ -191,7 +191,7 @@ install_desktops() {
             # Full KDE Plasma
             "Plasma_Full")
                 echo -e "Installing Plasma via plasma-meta..."
-                pacman -S plasma-meta --no-confirm
+                pacman -S plasma-meta --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install plasma-meta. Aborting install..."
@@ -200,7 +200,7 @@ install_desktops() {
 
                 # Install plasma applications
                 echo -e "Installing KDE applications..."
-                pacman -S kde-applications --no-confirm
+                pacman -S kde-applications --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install KDE applications. Aborting install..."
