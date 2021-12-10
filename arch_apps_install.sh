@@ -73,7 +73,7 @@ select_ides() {
         Emacs "" off \
         IntelliJ "" on \
         PyCharm "" off \
-        "Android Studio" "(AUR)" off \
+        "Android_Studio" "(AUR)" off \
         Arduino "" off \
         2>&1 1>&3))
     exec 3>&-
@@ -100,7 +100,7 @@ install_ides() {
                 pacman -S pycharm-community-edition --noconfirm
                 ;;
 
-            "Android Studio")
+            "Android_Studio")
                 yay -S android-studio --noconfirm
                 ;;
 
@@ -273,6 +273,21 @@ then
 	exit $?
 fi
 
+# Install dialog
+echo -e "Installing dialog..."
+pacman -S dialog --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install dialog. Aborting install..."
+	exit $?
+fi
+
+# Make selections
+select_basics
+select_desktops
+select_browsers
+select_ides
+
 # Install Xorg
 echo -e "Installing xorg..."
 pacman -S xorg xorg-xinit --noconfirm
@@ -318,23 +333,7 @@ then
 	exit $?
 fi
 
-# Install dialog
-echo -e "Installing dialog..."
-pacman -S dialog --noconfirm
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to install dialog. Aborting install..."
-	exit $?
-fi
-
 #TODO Install yay/paru
-
-
-# Make selections
-select_basics
-select_desktops
-select_browsers
-select_ides
 
 # Do installations
 install_basics
