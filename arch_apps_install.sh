@@ -133,19 +133,19 @@ install_browsers () {
             # Firefox
             "Firefox")
                 pacman -S firefox --noconfirm
-                ;;
+            ;;
 
             "Konqueror")
                 pacman -S konqueror --noconfirm
-                ;;
+            ;;
 
             "Brave")
                 yay -S brave-bin --noconfirm
-                ;;
+            ;;
 
             "Chrome")
                 yay -S google-chrome --noconfirm
-                ;;
+            ;;
         esac
     done 
 }
@@ -186,7 +186,7 @@ install_desktops() {
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
                     exit $?
                 fi
-                ;;
+            ;;
 
             # Full KDE Plasma
             "Plasma_Full")
@@ -206,7 +206,7 @@ install_desktops() {
                     echo "ERROR: Failed to install KDE applications. Aborting install..."
                     exit $?
                 fi
-                ;;
+            ;;
         esac
     done
 }
@@ -237,33 +237,33 @@ select DRIVER_TYPE in AMD Intel NVIDIA VirtualBox Skip
 do
     case $DRIVER_TYPE in 
         "AMD")
-        pacman -S xf86-video-amdgpu --noconfirm
-        break
+            pacman -S xf86-video-amdgpu --noconfirm
+            break
         ;;
 
         "Intel")
-        pacman -S xf86-video-intel --noconfirm
-        break
+            pacman -S xf86-video-intel --noconfirm
+            break
         ;;
 
         "NVIDIA")
-        pacman -S xf86-video-nouveau --noconfirm
-        break
+            pacman -S xf86-video-nouveau --noconfirm
+            break
         ;;
 
         "VirtualBox")
-        pacman -S virtualbox-guest-utils xf86-video-vmware --noconfirm
-        systemctl enable vboxservice
+            pacman -S virtualbox-guest-utils xf86-video-vmware --noconfirm
+            systemctl enable vboxservice
         break
         ;;
 
         "Skip")
-        echo -e "Skipping graphics driver installation."
+            echo -e "Skipping graphics driver installation."
         break
         ;;
 
         *)
-        echo -e "Please make a valid selection."
+            echo -e "Please make a valid selection."
         ;;
     esac
 done
@@ -333,7 +333,30 @@ then
 	exit $?
 fi
 
-#TODO Install yay/paru
+# Install yay
+echo -e "Installing yay..."
+cd /opt
+git clone https://aur.archlinux.org/yay.git
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install yay. Aborting install..."
+	exit $?
+fi
+chown -R "$USER":users yay
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to change ownership for yay. Aborting install..."
+	exit $?
+fi
+cd - # Make sure the previous directory is not lost
+cd /opt/yay
+makepkg -si --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to build yay. Aborting install..."
+	exit $?
+fi
+cd -
 
 # Do installations
 install_basics
