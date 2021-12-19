@@ -7,7 +7,7 @@ select_basics() {
     exec 3>&1
     BASICS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which apps you would like to install." 60 40 5 \
         Nano "" on \
-        Vim "" off \
+        Vim "" on \
         gedit "" on \
         htop "" on \
         feh "" on \
@@ -101,7 +101,8 @@ install_ides() {
                 ;;
 
             "Android_Studio")
-                yay -S android-studio --noconfirm
+                #yay -S android-studio --noconfirm
+                echo -e "AUR support not yet implemented."
                 ;;
 
             "Arduino")
@@ -140,11 +141,13 @@ install_browsers () {
             ;;
 
             "Brave")
-                yay -S brave-bin --noconfirm
+                # yay -S brave-bin --noconfirm
+                echo -e "AUR support not yet implemented."
             ;;
 
             "Chrome")
-                yay -S google-chrome --noconfirm
+                # yay -S google-chrome --noconfirm
+                echo -e "AUR support not yet implemented."
             ;;
         esac
     done 
@@ -334,29 +337,29 @@ then
 fi
 
 # Install yay
-echo -e "Installing yay..."
-cd /opt
-git clone https://aur.archlinux.org/yay.git
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to install yay. Aborting install..."
-	exit $?
-fi
-chown -R "$USER":users yay
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to change ownership for yay. Aborting install..."
-	exit $?
-fi
-cd - # Make sure the previous directory is not lost
-cd /opt/yay
-makepkg -si --noconfirm
-if [ $? -ne 0 ]
-then
-	echo "ERROR: Failed to build yay. Aborting install..."
-	exit $?
-fi
-cd -
+# echo -e "Installing yay..."
+# cd /opt
+# git clone https://aur.archlinux.org/yay.git
+# if [ $? -ne 0 ]
+# then
+# 	echo "ERROR: Failed to install yay. Aborting install..."
+# 	exit $?
+# fi
+# chown -R "$USER":users yay
+# if [ $? -ne 0 ]
+# then
+# 	echo "ERROR: Failed to change ownership for yay. Aborting install..."
+# 	exit $?
+# fi
+# cd - # Make sure the previous directory is not lost
+# cd /opt/yay
+# makepkg -si --noconfirm
+# if [ $? -ne 0 ]
+# then
+# 	echo "ERROR: Failed to build yay. Aborting install..."
+# 	exit $?
+# fi
+# cd -
 
 # Do installations
 install_basics
