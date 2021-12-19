@@ -7,7 +7,7 @@ select_basics() {
     exec 3>&1
     BASICS=($(dialog --clear --checklist "Use the arrow keys and spacebar to select which apps you would like to install." 60 40 5 \
         Nano "" on \
-        Vim "" on \
+        Vim "" off \
         gedit "" on \
         htop "" on \
         feh "" on \
@@ -183,7 +183,7 @@ install_desktops() {
 
                 # Install basic plasma packages
                 echo -e "Installing basic applications for KDE Plasma"
-                pacman -S plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover kate --noconfirm
+                pacman -S plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover kate --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
