@@ -337,29 +337,29 @@ then
 fi
 
 # Install yay
-# echo -e "Installing yay..."
-# cd /opt
-# git clone https://aur.archlinux.org/yay.git
-# if [ $? -ne 0 ]
-# then
-# 	echo "ERROR: Failed to install yay. Aborting install..."
-# 	exit $?
-# fi
-# chown -R "$USER":users yay
-# if [ $? -ne 0 ]
-# then
-# 	echo "ERROR: Failed to change ownership for yay. Aborting install..."
-# 	exit $?
-# fi
-# cd - # Make sure the previous directory is not lost
-# cd /opt/yay
-# makepkg -si --noconfirm
-# if [ $? -ne 0 ]
-# then
-# 	echo "ERROR: Failed to build yay. Aborting install..."
-# 	exit $?
-# fi
-# cd -
+echo -e "Installing yay..."
+cd /opt
+git clone https://aur.archlinux.org/yay.git
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install yay. Aborting install..."
+	exit $?
+fi
+chown -R "$USER":users yay
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to change ownership for yay. Aborting install..."
+	exit $?
+fi
+cd - # Make sure the previous directory is not lost
+cd /opt/yay
+sudo -u nobody makepkg -si --noconfirm # Build package as <nobody> user
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to build yay. Aborting install..."
+	exit $?
+fi
+cd - # Go back to previous directory
 
 # Do installations
 install_basics
