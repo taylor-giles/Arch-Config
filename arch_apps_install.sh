@@ -311,7 +311,7 @@ fi
 
 # Install SDDM
 echo -e "Installing SDDM..."
-pacman -S sddm --noconfirm
+pacman -S sddm sddm-kcm --noconfirm
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Failed to install SDDM. Aborting install..."
