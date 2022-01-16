@@ -11,10 +11,11 @@ select_basics() {
         gedit "" on \
         htop "" on \
         feh "" on \
-        Okular "" on \
+        Okular "" off \
         VLC "" on \
         Alacritty "" on \
         Nitrogen "" on \
+        LibreOffice "" off \
         2>&1 1>&3))
     exec 3>&-
     clear
@@ -58,6 +59,10 @@ install_basics() {
 
             "Nitrogen")
                 pacman -S nitrogen --noconfirm
+                ;;
+
+            "LibreOffice")
+                pacman -S libreoffice-still --noconfirm
                 ;;
         esac
     done 
@@ -183,7 +188,7 @@ install_desktops() {
 
                 # Install basic plasma packages
                 echo -e "Installing basic applications for KDE Plasma"
-                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover kate khotkeys --noconfirm
+                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover khotkeys --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
