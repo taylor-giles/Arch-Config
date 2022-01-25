@@ -188,7 +188,7 @@ install_desktops() {
 
                 # Install basic plasma packages
                 echo -e "Installing basic applications for KDE Plasma"
-                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover khotkeys --noconfirm
+                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover khotkeys spectacle --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
