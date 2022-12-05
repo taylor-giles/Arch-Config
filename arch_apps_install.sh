@@ -188,7 +188,7 @@ install_desktops() {
 
                 # Install basic plasma packages
                 echo -e "Installing basic applications for KDE Plasma"
-                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config discover khotkeys spectacle --noconfirm
+                pacman -S packagekit-qt5 plasma-systemmonitor plasma-nm plasma-pa dolphin konsole kdeplasma-addons kde-gtk-config kscreen discover khotkeys spectacle --noconfirm
                 if [ $? -ne 0 ]
                 then
                     echo "ERROR: Failed to install basic Plasma apps. Aborting install..."
@@ -278,6 +278,15 @@ done
 if [ $? -ne 0 ]
 then
 	echo "ERROR: Failed to install graphics drivers. Aborting install..."
+	exit $?
+fi
+
+# Install Bluetooth driver
+echo -e "Installing Bluetooth drivers..."
+pacman -S bluez bluez-utils pulseaudio-bluetooth blueman --noconfirm
+if [ $? -ne 0 ]
+then
+	echo "ERROR: Failed to install Bluetooth drivers. Aborting install..."
 	exit $?
 fi
 
