@@ -144,7 +144,7 @@ fi
 
 # Install grub
 echo -e "Installing grub and related packages..."
-pacman -S grub efibootmgr dosfstools os-prober mtools --noconfirm
+pacman -S grub efibootmgr dosfstools os-prober mtools ntfs-3g --noconfirm 	# ntfs-3g is for os-prober to detect Windows
 if [ $? -ne 0 ]
 then
 	echo -e "ERROR: Failed to install grub packages. Aborting config..."
