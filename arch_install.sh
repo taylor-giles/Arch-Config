@@ -18,24 +18,31 @@ select_partitions () {
 		then
 			echo "Please make a valid selection."
 		else
-			echo "Partition selected: $EFI_PART"
+			echo "EFI partition selected: $EFI_PART"
 			break
 		fi
 	done
 
 	# Select SWAP partition
 	echo "\n"
-	PS3="Select the SWAP partition: "
-	select SWAP_PART in $PARTITION_OPTIONS 
-	do
-		if [ -z $SWAP_PART ]
-		then
-			echo "Please make a valid selection."
-		else
-			echo "Partition selected: $SWAP_PART"
-			break
-		fi
-	done
+	read "HAS_SWAP?Does this system have a SWAP partition? (y/N): "
+	HAS_SWAP=${HAS_SWAP:l}
+	HAS_SWAP=[[ $HAS_SWAP == "yes" || $HAS_SWAP == "y" ]]
+	if $HAS_SWAP; then
+		PS3="Select the SWAP partition: "
+		select SWAP_PART in $PARTITION_OPTIONS; do
+			if [ -z "$SWAP_PART" ]; then
+				echo "Please make a valid selection."
+			else
+				echo "SWAP partition selected: $SWAP_PART"
+				break
+			fi
+		done
+	else
+		SWAP_PART="N/A"
+		echo "Skipping SWAP partition selection."
+	fi
+
 
 	# Select FS partition
 	echo "\n"
@@ -46,7 +53,7 @@ select_partitions () {
 		then
 			echo "Please make a valid selection."
 		else
-			echo "Partition selected: $FS_PART"
+			echo "FILESYSTEM partition selected: $FS_PART"
 			break
 		fi
 	done
@@ -82,8 +89,8 @@ echo ""
 
 # Add /dev/ and remove whitespace
 EFI=$(echo "/dev/$EFI_PART" | xargs)
-SWAP=$(echo "/dev/$SWAP_PART" | xargs)
 FS=$(echo "/dev/$FS_PART" | xargs)
+SWAP=$(echo "/dev/$SWAP_PART" | xargs)
 
 echo "Creating ext4 file system..."
 mkfs.ext4 $FS
@@ -93,19 +100,22 @@ then
 	exit $?
 fi
 
-echo "Initializing swap..."
-mkswap $SWAP
-if [ $? -ne 0 ]
-then
-	echo "ERROR: mkswap failed. Aborting install..."
-	exit $?
-fi
+if $HAS_SWAP; then
+	echo "Initializing swap..."
+	
+	mkswap $SWAP
+	if [ $? -ne 0 ]
+	then
+		echo "ERROR: mkswap failed. Aborting install..."
+		exit $?
+	fi
 
-swapon $SWAP
-if [ $? -ne 0 ]
-then
-	echo "ERROR: swapon failed. Aborting install..."
-	exit $?
+	swapon $SWAP
+	if [ $? -ne 0 ]
+	then
+		echo "ERROR: swapon failed. Aborting install..."
+		exit $?
+	fi
 fi
 
 echo "Formatting EFI partition..."
