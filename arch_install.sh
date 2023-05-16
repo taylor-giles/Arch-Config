@@ -25,9 +25,12 @@ select_partitions () {
 
 	# Select SWAP partition
 	echo "\n"
-	read "HAS_SWAP?Does this system have a SWAP partition? (y/N): "
+	read -q "HAS_SWAP?Does this system have a SWAP partition? (y/N): "
 	HAS_SWAP=${HAS_SWAP:l}
-	HAS_SWAP=[[ $HAS_SWAP == "yes" || $HAS_SWAP == "y" ]]
+	HAS_SWAP=false
+	if [[ $HAS_SWAP == "yes" || $HAS_SWAP == "y" ]]; then
+		HAS_SWAP=true
+	fi
 	if $HAS_SWAP; then
 		PS3="Select the SWAP partition: "
 		select SWAP_PART in $PARTITION_OPTIONS; do
